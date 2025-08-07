@@ -1,8 +1,10 @@
+
 import React, { useEffect } from 'react';
 import SircellNavBar from '@/components/SircellNavBar';
 import SircellHero from '@/components/SircellHero';
 import SircellAbout from '@/components/SircellAbout';
 import SircellServices from '@/components/SircellServices';
+import SircellGallery from '@/components/SircellGallery';
 import SircellInstagram from '@/components/SircellInstagram';
 import SircellLocation from '@/components/SircellLocation';
 import Contact from '@/components/Contact';
@@ -113,6 +115,7 @@ const Index = () => {
         <div className="space-y-0 relative z-10">
           <SircellAbout />
           <SircellServices />
+          <SircellGallery />
           <SircellInstagram />
           <SircellLocation />
           <div id="contato">
