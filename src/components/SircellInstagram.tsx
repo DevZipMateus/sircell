@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Instagram, Heart, MessageCircle, Share2, Camera } from 'lucide-react';
+import { Instagram, Heart, MessageCircle, Share2 } from 'lucide-react';
 
 const SircellInstagram = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -35,21 +35,18 @@ const SircellInstagram = () => {
   const mockPosts = [
     {
       id: 1,
-      image: "/lovable-uploads/b5b6b1a3-79c2-49f0-83c4-fca215c4a8d7.png",
       caption: "Mais um celular Samsung Galaxy restaurado com sucesso! ✨ #SircellAssistecia #RepairPro",
       likes: 127,
       comments: 18
     },
     {
       id: 2,
-      image: "/lovable-uploads/90d99fc5-2fe3-4a3b-a15c-64bc0c7f8cef.png",
       caption: "iPhone com tela quebrada? Não se preocupe! Nossa equipe resolve rapidinho 📱⚡",
       likes: 203,
       comments: 31
     },
     {
       id: 3,
-      image: "/lovable-uploads/69a48e2b-d0fd-4b71-a842-abe00864f7fd.png",
       caption: "Laboratório em pleno funcionamento! Tecnologia de ponta para seus equipamentos 🔧💚",
       likes: 89,
       comments: 12
@@ -98,28 +95,21 @@ const SircellInstagram = () => {
           </div>
         </div>
 
-        {/* Instagram Posts Grid */}
+        {/* Instagram Posts Grid - Now without images */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {mockPosts.map((post, index) => (
             <div
               key={post.id}
               ref={el => elementsRef.current[3 + index] = el}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 opacity-0 overflow-hidden group cursor-pointer"
+              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 opacity-0 overflow-hidden group cursor-pointer border border-sircell-lightgray"
               style={{ animationDelay: `${index * 100 + 300}ms` }}
             >
-              <div className="relative overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={`Post ${post.id}`}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Camera className="h-8 w-8 text-white" />
-                </div>
-              </div>
-              
               <div className="p-6">
-                <p className="text-sircell-gray text-sm mb-4 leading-relaxed">
+                <div className="flex items-center justify-center mb-4">
+                  <Instagram className="h-8 w-8 text-sircell-green" />
+                </div>
+                
+                <p className="text-sircell-gray text-sm mb-4 leading-relaxed min-h-[60px]">
                   {post.caption}
                 </p>
                 
