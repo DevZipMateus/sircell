@@ -18,8 +18,8 @@ const GalleryGrid: React.FC<GalleryGridProps> = memo(({
   showSkeletons = false
 }) => {
   const { targetRef, isIntersecting } = useGlobalIntersectionObserver<HTMLDivElement>({
-    threshold: 0.1,
-    rootMargin: '200px'
+    threshold: 0.05, // Mais sensível
+    rootMargin: '100px' // Menor margem
   });
 
   const displayImages = maxImages ? images.slice(0, maxImages) : images;
@@ -27,11 +27,10 @@ const GalleryGrid: React.FC<GalleryGridProps> = memo(({
   return (
     <div 
       ref={targetRef}
-      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 opacity-0 animate-slide-up"
+      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 md:gap-4"
     >
       {showSkeletons && !isIntersecting ? (
-        // Mostrar skeletons enquanto não intersecta
-        Array.from({ length: 12 }).map((_, index) => (
+        Array.from({ length: 6 }).map((_, index) => (
           <ImageSkeleton key={`skeleton-${index}`} />
         ))
       ) : (
@@ -40,7 +39,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = memo(({
             key={`${image.src}-${index}`}
             product={image}
             onClick={() => onImageClick(image)}
-            priority={index < 4} // Prioridade para as primeiras 4 imagens
+            priority={index < 2} // Apenas 2 primeiras com prioridade
           />
         ))
       )}

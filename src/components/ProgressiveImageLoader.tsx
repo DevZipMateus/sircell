@@ -14,8 +14,8 @@ interface ProgressiveImageLoaderProps {
 const ProgressiveImageLoader: React.FC<ProgressiveImageLoaderProps> = ({
   images,
   onImageClick,
-  initialLoadCount = 12,
-  loadMoreCount = 8
+  initialLoadCount = 6, // Reduzido drasticamente
+  loadMoreCount = 6
 }) => {
   const [loadedCount, setLoadedCount] = useState(initialLoadCount);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,11 +29,11 @@ const ProgressiveImageLoader: React.FC<ProgressiveImageLoaderProps> = ({
 
   const handleLoadMore = () => {
     setIsLoading(true);
-    // Simular delay para melhor UX
+    // Loading mais rápido
     setTimeout(() => {
       setLoadedCount(prev => Math.min(prev + loadMoreCount, images.length));
       setIsLoading(false);
-    }, 300);
+    }, 100);
   };
 
   return (
@@ -44,11 +44,11 @@ const ProgressiveImageLoader: React.FC<ProgressiveImageLoaderProps> = ({
       />
       
       {hasMore && (
-        <div className="text-center mt-12">
+        <div className="text-center mt-8">
           <Button
             onClick={handleLoadMore}
             disabled={isLoading}
-            className="bg-sircell-green hover:bg-sircell-darkgreen text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
+            className="bg-sircell-green hover:bg-sircell-darkgreen text-white px-6 py-3 rounded-lg font-medium text-base transition-colors duration-200"
           >
             {isLoading ? (
               <>
@@ -56,7 +56,7 @@ const ProgressiveImageLoader: React.FC<ProgressiveImageLoaderProps> = ({
                 Carregando...
               </>
             ) : (
-              `Carregar Mais (${images.length - loadedCount} restantes)`
+              `Carregar Mais (${images.length - loadedCount})`
             )}
           </Button>
         </div>

@@ -1,5 +1,5 @@
 
-import React, { useState, memo, useCallback } from 'react';
+import React, { useState, memo, useCallback, useRef, useEffect } from 'react';
 import ImageSkeleton from './ImageSkeleton';
 
 interface LazyImageProps {
@@ -10,6 +10,9 @@ interface LazyImageProps {
   priority?: boolean;
 }
 
+// Cache simples de imagens carregadas
+const imageCache = new Set<string>();
+
 const LazyImage: React.FC<LazyImageProps> = memo(({ 
   src, 
   alt, 
@@ -17,31 +20,39 @@ const LazyImage: React.FC<LazyImageProps> = memo(({
   aspectRatio = "aspect-square",
   priority = false
 }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(() => imageCache.has(src));
   const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => !imageCache.has(src));
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const handleLoad = useCallback(() => {
+    imageCache.add(src);
     setIsLoaded(true);
     setIsLoading(false);
-  }, []);
+  }, [src]);
 
   const handleError = useCallback(() => {
     setHasError(true);
     setIsLoading(false);
   }, []);
 
-  const handleLoadStart = useCallback(() => {
-    setIsLoading(true);
-  }, []);
+  // Preload crítico para imagens priority
+  useEffect(() => {
+    if (priority && !imageCache.has(src)) {
+      const img = new Image();
+      img.onload = handleLoad;
+      img.onerror = handleError;
+      img.src = src;
+    }
+  }, [src, priority, handleLoad, handleError]);
 
   if (hasError) {
     return (
       <div className={`${aspectRatio} overflow-hidden relative ${className}`}>
         <div className="absolute inset-0 bg-sircell-lightgray flex items-center justify-center">
           <div className="text-center">
-            <div className="w-12 h-12 bg-gray-300 rounded-full mx-auto mb-2"></div>
-            <span className="text-sircell-gray text-sm">Erro ao carregar</span>
+            <div className="w-8 h-8 bg-gray-300 rounded-full mx-auto mb-1"></div>
+            <span className="text-sircell-gray text-xs">Erro</span>
           </div>
         </div>
       </div>
@@ -53,13 +64,13 @@ const LazyImage: React.FC<LazyImageProps> = memo(({
       {isLoading && <ImageSkeleton />}
       
       <img 
+        ref={imgRef}
         src={src}
         alt={alt}
-        className={`w-full h-full object-cover transition-all duration-500 ${
+        className={`w-full h-full object-cover transition-all duration-300 ${
           isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
         loading={priority ? "eager" : "lazy"}
-        onLoadStart={handleLoadStart}
         onLoad={handleLoad}
         onError={handleError}
         decoding="async"
@@ -67,6 +78,8 @@ const LazyImage: React.FC<LazyImageProps> = memo(({
           position: isLoaded ? 'relative' : 'absolute',
           top: isLoaded ? 'auto' : 0,
           left: isLoaded ? 'auto' : 0,
+          imageRendering: 'optimizeSpeed',
+          transform: 'translateZ(0)', // GPU acceleration
         }}
       />
     </div>
