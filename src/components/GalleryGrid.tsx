@@ -9,17 +9,21 @@ interface GalleryGridProps {
   onImageClick: (image: { src: string; alt: string }) => void;
   maxImages?: number;
   showSkeletons?: boolean;
+  preloadCache?: Set<string>;
+  isImagePreloaded?: (src: string) => boolean;
 }
 
 const GalleryGrid: React.FC<GalleryGridProps> = memo(({ 
   images, 
   onImageClick, 
   maxImages,
-  showSkeletons = false
+  showSkeletons = false,
+  preloadCache,
+  isImagePreloaded
 }) => {
   const { targetRef, isIntersecting } = useGlobalIntersectionObserver<HTMLDivElement>({
-    threshold: 0.05, // Mais sensível
-    rootMargin: '100px' // Menor margem
+    threshold: 0.01,
+    rootMargin: '200px'
   });
 
   const displayImages = maxImages ? images.slice(0, maxImages) : images;
@@ -34,12 +38,13 @@ const GalleryGrid: React.FC<GalleryGridProps> = memo(({
           <ImageSkeleton key={`skeleton-${index}`} />
         ))
       ) : (
-        isIntersecting && displayImages.map((image, index) => (
+        displayImages.map((image, index) => (
           <ProductCard
             key={`${image.src}-${index}`}
             product={image}
             onClick={() => onImageClick(image)}
-            priority={index < 2} // Apenas 2 primeiras com prioridade
+            priority={index < 4}
+            isPreloaded={isImagePreloaded ? isImagePreloaded(image.src) : false}
           />
         ))
       )}

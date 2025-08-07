@@ -9,13 +9,17 @@ interface ProgressiveImageLoaderProps {
   onImageClick: (image: { src: string; alt: string }) => void;
   initialLoadCount?: number;
   loadMoreCount?: number;
+  preloadCache?: Set<string>;
+  isImagePreloaded?: (src: string) => boolean;
 }
 
 const ProgressiveImageLoader: React.FC<ProgressiveImageLoaderProps> = ({
   images,
   onImageClick,
-  initialLoadCount = 6, // Reduzido drasticamente
-  loadMoreCount = 6
+  initialLoadCount = 12,
+  loadMoreCount = 8,
+  preloadCache,
+  isImagePreloaded
 }) => {
   const [loadedCount, setLoadedCount] = useState(initialLoadCount);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,11 +33,11 @@ const ProgressiveImageLoader: React.FC<ProgressiveImageLoaderProps> = ({
 
   const handleLoadMore = () => {
     setIsLoading(true);
-    // Loading mais rápido
+    // Loading instantâneo para imagens pré-carregadas
     setTimeout(() => {
       setLoadedCount(prev => Math.min(prev + loadMoreCount, images.length));
       setIsLoading(false);
-    }, 100);
+    }, 50);
   };
 
   return (
@@ -41,6 +45,8 @@ const ProgressiveImageLoader: React.FC<ProgressiveImageLoaderProps> = ({
       <GalleryGrid
         images={displayImages}
         onImageClick={onImageClick}
+        preloadCache={preloadCache}
+        isImagePreloaded={isImagePreloaded}
       />
       
       {hasMore && (

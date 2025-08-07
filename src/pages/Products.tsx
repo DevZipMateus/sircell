@@ -1,17 +1,15 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import ProgressiveImageLoader from '../components/ProgressiveImageLoader';
 import GalleryModal from '../components/GalleryModal';
-import { useImagePreloader } from '../hooks/useImagePreloader';
+import { useEagerImagePreloader } from '../hooks/useEagerImagePreloader';
 
 const Products = () => {
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
 
   // Lista completa das imagens - organizada por prioridade
   const galleryImages = [
-    // Imagens mais populares primeiro
     {
       src: '/lovable-uploads/galeria/cabos_de_carregamento_rapido_.jpg',
       alt: 'Cabos de carregamento rápido'
@@ -36,7 +34,6 @@ const Products = () => {
       src: '/lovable-uploads/galeria/luminaria_decorativa_tres_em_um_tres_modelos_de_usar_e_quando_carregada_serve_de_power_banck_tbm_.jpg',
       alt: 'Luminária decorativa três em um'
     },
-    // Resto das imagens
     {
       src: '/lovable-uploads/galeria/balanca_digital_de_ate_500mg_.jpg',
       alt: 'Balança digital de até 500mg'
@@ -127,10 +124,11 @@ const Products = () => {
     }
   ];
 
-  // Preload apenas das primeiras imagens críticas
-  useImagePreloader({
-    images: galleryImages.slice(0, 2).map(img => img.src),
-    priority: true
+  // Pré-carregamento agressivo das primeiras 12 imagens
+  const { preloadCache, isImagePreloaded } = useEagerImagePreloader({
+    images: galleryImages.map(img => img.src),
+    priority: true,
+    preloadCount: 12
   });
 
   useEffect(() => {
@@ -204,8 +202,10 @@ const Products = () => {
           <ProgressiveImageLoader
             images={galleryImages}
             onImageClick={openModal}
-            initialLoadCount={6}
-            loadMoreCount={6}
+            initialLoadCount={12}
+            loadMoreCount={8}
+            preloadCache={preloadCache}
+            isImagePreloaded={isImagePreloaded}
           />
 
           <div className="text-center mt-12">
