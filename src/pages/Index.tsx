@@ -1,15 +1,13 @@
 
 import React, { useEffect } from 'react';
-import NavBar from '@/components/NavBar';
-import Hero from '@/components/Hero';
-import Services from '@/components/Services';
-import HowItWorks from '@/components/HowItWorks';
-import AboutUs from '@/components/AboutUs';
-import Reviews from '@/components/Reviews';
-import FAQ from '@/components/FAQ';
+import SircellNavBar from '@/components/SircellNavBar';
+import SircellHero from '@/components/SircellHero';
+import SircellAbout from '@/components/SircellAbout';
+import SircellServices from '@/components/SircellServices';
+import SircellLocation from '@/components/SircellLocation';
 import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
-import WhatsAppButton from '@/components/WhatsAppButton';
+import SircellFooter from '@/components/SircellFooter';
+import SircellWhatsApp from '@/components/SircellWhatsApp';
 import ClickSpark from '@/components/ClickSpark';
 import { useParallax } from '@/hooks/useParallax';
 
@@ -17,6 +15,48 @@ const Index = () => {
   const { getParallaxStyle } = useParallax();
 
   useEffect(() => {
+    // Meta tags para SEO
+    document.title = "Sircell Assistência Técnica - Celulares, Tablets e Computadores | RS";
+    
+    // Meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Sircell Assistência Técnica especializada em celulares, tablets e computadores. Laboratório próprio, reparo rápido e preços justos. Marechal Floriano 1001, RS.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Sircell Assistência Técnica especializada em celulares, tablets e computadores. Laboratório próprio, reparo rápido e preços justos. Marechal Floriano 1001, RS.';
+      document.head.appendChild(meta);
+    }
+
+    // Meta keywords
+    const metaKeywords = document.createElement('meta');
+    metaKeywords.name = 'keywords';
+    metaKeywords.content = 'assistência técnica, celular, tablet, computador, reparo, Sircell, RS, Marechal Floriano, laboratório';
+    document.head.appendChild(metaKeywords);
+
+    // Open Graph tags
+    const ogTitle = document.createElement('meta');
+    ogTitle.property = 'og:title';
+    ogTitle.content = 'Sircell Assistência Técnica - Especialistas em Eletrônicos';
+    document.head.appendChild(ogTitle);
+
+    const ogDescription = document.createElement('meta');
+    ogDescription.property = 'og:description';
+    ogDescription.content = 'Teu celular pronto antes de você sentir falta dele! Assistência técnica com laboratório próprio e garantia.';
+    document.head.appendChild(ogDescription);
+
+    const ogImage = document.createElement('meta');
+    ogImage.property = 'og:image';
+    ogImage.content = '/lovable-uploads/b5b6b1a3-79c2-49f0-83c4-fca215c4a8d7.png';
+    document.head.appendChild(ogImage);
+
+    // Twitter Card
+    const twitterCard = document.createElement('meta');
+    twitterCard.name = 'twitter:card';
+    twitterCard.content = 'summary_large_image';
+    document.head.appendChild(twitterCard);
+
     // Ensure smooth scroll behavior works properly
     const handleHashChange = () => {
       if (window.location.hash) {
@@ -41,7 +81,7 @@ const Index = () => {
 
   return (
     <ClickSpark
-      sparkColor="#f97316"
+      sparkColor="#00b300"
       sparkSize={12}
       sparkRadius={20}
       sparkCount={6}
@@ -49,49 +89,37 @@ const Index = () => {
       easing="ease-out"
       extraScale={1.2}
     >
-      <main className="min-h-screen flex flex-col antialiased overflow-x-hidden relative">
+      <main className="min-h-screen flex flex-col antialiased overflow-x-hidden relative bg-white">
         {/* Floating elements with JavaScript parallax */}
         <div 
-          className="fixed top-20 left-10 w-3 h-3 bg-white/20 rounded-full animate-float -z-10"
+          className="fixed top-20 left-10 w-3 h-3 bg-sircell-green/20 rounded-full animate-float -z-10"
           style={getParallaxStyle(0.1)}
         ></div>
         <div 
-          className="fixed top-32 right-16 w-2 h-2 bg-accent/30 rounded-full animate-float animation-delay-500 -z-10"
+          className="fixed top-32 right-16 w-2 h-2 bg-sircell-black/30 rounded-full animate-float animation-delay-500 -z-10"
           style={getParallaxStyle(0.15)}
         ></div>
         <div 
-          className="fixed bottom-32 left-20 w-4 h-4 bg-tech-green/20 rounded-full animate-float animation-delay-300 -z-10"
+          className="fixed bottom-32 left-20 w-4 h-4 bg-sircell-green/20 rounded-full animate-float animation-delay-300 -z-10"
           style={getParallaxStyle(0.25)}
         ></div>
         <div 
-          className="fixed bottom-20 right-12 w-2 h-2 bg-white/30 rounded-full animate-float animation-delay-700 -z-10"
+          className="fixed bottom-20 right-12 w-2 h-2 bg-sircell-black/30 rounded-full animate-float animation-delay-700 -z-10"
           style={getParallaxStyle(0.2)}
         ></div>
         
-        <NavBar />
-        <Hero />
+        <SircellNavBar />
+        <SircellHero />
         <div className="space-y-0 relative z-10">
-          <div className="section-bg-semi">
-            <Services />
-          </div>
-          <div className="section-bg-alt">
-            <HowItWorks />
-          </div>
-          <div className="section-bg-semi">
-            <AboutUs />
-          </div>
-          <div className="section-bg-alt">
-            <Reviews />
-          </div>
-          <div className="section-bg-semi">
-            <FAQ />
-          </div>
-          <div className="section-bg-alt">
+          <SircellAbout />
+          <SircellServices />
+          <SircellLocation />
+          <div id="contato">
             <Contact />
           </div>
         </div>
-        <Footer />
-        <WhatsAppButton />
+        <SircellFooter />
+        <SircellWhatsApp />
       </main>
     </ClickSpark>
   );

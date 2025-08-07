@@ -62,15 +62,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Cores específicas da TechHelp - mudança de laranja para vermelho
-				tech: {
-					blue: 'hsl(215, 70%, 45%)',
-					darkblue: 'hsl(215, 80%, 35%)',
-					lightblue: 'hsl(215, 60%, 55%)',
-					gray: 'hsl(215, 20%, 60%)',
-					lightgray: 'hsl(210, 30%, 94%)',
-					orange: 'hsl(0, 84%, 60%)', // Mudado para vermelho
-					green: 'hsl(142, 70%, 45%)',
+				// Cores específicas da Sircell baseadas na logo
+				sircell: {
+					green: 'hsl(120, 100%, 40%)', // Verde principal da logo
+					darkgreen: 'hsl(120, 100%, 30%)', // Verde mais escuro
+					lightgreen: 'hsl(120, 60%, 85%)', // Verde claro para backgrounds
+					black: 'hsl(0, 0%, 15%)', // Preto da logo
+					gray: 'hsl(0, 0%, 50%)',
+					lightgray: 'hsl(0, 0%, 95%)',
 					white: '#FFFFFF',
 				},
 			},
@@ -115,6 +114,16 @@ export default {
 				pulse: {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.5' }
+				},
+				bounce: {
+					'0%, 100%': { 
+						transform: 'translateY(-25%)',
+						animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)'
+					},
+					'50%': {
+						transform: 'translateY(0)',
+						animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
+					}
 				}
 			},
 			animation: {
@@ -126,7 +135,8 @@ export default {
 				'slide-in-left': 'slideInLeft 0.6s ease-out forwards',
 				'slide-in-right': 'slideInRight 0.6s ease-out forwards',
 				'float': 'float 3s ease-in-out infinite',
-				'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+				'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'bounce': 'bounce 1s infinite'
 			},
 			transitionDuration: {
 				'2000': '2000ms',

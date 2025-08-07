@@ -7,32 +7,31 @@
 
 @layer base {
   :root {
-    /* Cores primárias - tons de azul e cinza */
-    --background: 215 25% 97%;
-    --foreground: 215 60% 15%;
+    /* Cores primárias da Sircell - Verde e Preto */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 215 60% 15%;
+    --card-foreground: 0 0% 15%;
 
     /* Cores secundárias */
-    --secondary: 210 30% 94%;
-    --secondary-foreground: 215 40% 30%;
-    --muted: 210 30% 94%;
-    --muted-foreground: 215 16% 46%;
-    --accent: 0 84% 60%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 15%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 120 100% 40%;
     --accent-foreground: 0 0% 100%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 60% 15%;
+    --popover-foreground: 0 0% 15%;
 
     /* Cores de contraste */
-    --primary: 215 70% 45%;
+    --primary: 120 100% 40%;
     --primary-foreground: 0 0% 100%;
-    --tech-green: 142 70% 45%;
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
     
-    --border: 214 32% 88%;
-    --input: 214 32% 88%;
-    --ring: 215 70% 45%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 120 100% 40%;
 
     --radius: 0.5rem;
   }
@@ -47,8 +46,8 @@
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv03" on;
     position: relative;
     min-height: 100vh;
-    background: transparent;
-    color: #ffffff;
+    background: #ffffff;
+    color: #262626;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-weight: 400;
     letter-spacing: -0.01em;
@@ -112,7 +111,7 @@
   
   .hero-title {
     @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light mb-4 sm:mb-6 opacity-0 animate-slide-up tracking-tight leading-tight;
-    background: linear-gradient(135deg, hsl(215, 70%, 45%) 0%, hsl(0, 84%, 60%) 100%);
+    background: linear-gradient(135deg, hsl(120, 100%, 40%) 0%, hsl(0, 0%, 15%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -139,21 +138,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-  }
-  
-  /* Semi-transparent section backgrounds with drastically reduced opacity */
-  .section-bg-semi {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(1px);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  
-  .section-bg-alt {
-    background: rgba(240, 249, 255, 0.01);
-    backdrop-filter: blur(1px);
-    border-top: 1px solid rgba(240, 249, 255, 0.05);
-    border-bottom: 1px solid rgba(240, 249, 255, 0.05);
   }
   
   .animation-delay-100 {
@@ -184,41 +168,16 @@
     animation-delay: 700ms;
   }
   
-  .tech-gradient {
-    background: linear-gradient(135deg, hsl(215, 70%, 45%) 0%, hsl(215, 60%, 55%) 50%, hsl(0, 84%, 60%) 100%);
+  .sircell-gradient {
+    background: linear-gradient(135deg, hsl(120, 100%, 40%) 0%, hsl(120, 100%, 30%) 50%, hsl(0, 0%, 15%) 100%);
   }
   
   .service-card {
-    @apply bg-white/70 backdrop-blur-md rounded-xl p-4 sm:p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0px_8px_30px_rgba(0,0,0,0.12)] hover:translate-y-[-4px] sm:hover:translate-y-[-8px] border border-white/20;
+    @apply bg-white/95 backdrop-blur-md rounded-xl p-4 sm:p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0px_8px_30px_rgba(0,0,0,0.12)] hover:translate-y-[-4px] sm:hover:translate-y-[-8px] border border-green-100;
   }
   
-  .tech-overlay {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(29, 78, 216, 0.85) 50%, rgba(220, 38, 127, 0.9) 100%);
-  }
-
-  /* Parallax depth layers */
-  .parallax-layer-1 {
-    transform: translateZ(-1px) scale(2);
-  }
-  
-  .parallax-layer-2 {
-    transform: translateZ(-2px) scale(3);
-  }
-  
-  .parallax-layer-3 {
-    transform: translateZ(-3px) scale(4);
-  }
-
-  /* Circuit pattern overlay */
-  .circuit-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.15;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.8'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3Cpath d='M40 30v20M30 40h20M35 35l10 10M45 35l-10 10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
+  .sircell-overlay {
+    background: linear-gradient(135deg, rgba(0, 179, 0, 0.9) 0%, rgba(0, 128, 0, 0.85) 50%, rgba(38, 38, 38, 0.9) 100%);
   }
 
   /* Float animation for floating elements */
