@@ -1,6 +1,5 @@
-
 import React, { useEffect, useRef } from 'react';
-import { Smartphone, Tablet, Monitor, Headphones, Gamepad2, Cable, Battery, Shield } from 'lucide-react';
+import { Smartphone, Tablet, Monitor, Headphones, Cable, Battery, Shield } from 'lucide-react';
 
 const SircellServices = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -146,7 +145,7 @@ const SircellServices = () => {
           ref={el => elementsRef.current[9] = el}
           className="bg-gradient-to-r from-sircell-green to-sircell-darkgreen rounded-3xl p-12 text-center text-white opacity-0"
         >
-          <Gamepad2 className="h-16 w-16 mx-auto mb-6" />
+          <Smartphone className="h-16 w-16 mx-auto mb-6" />
           <h3 className="text-3xl font-bold mb-4">
             Aparelhos Seminovos
           </h3>
