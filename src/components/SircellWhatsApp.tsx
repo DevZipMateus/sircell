@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { MessageCircle, Phone } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 const SircellWhatsApp = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,7 +24,7 @@ const SircellWhatsApp = () => {
   }, []);
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/5554981014238?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20Sircell%20Assistência%20Técnica.', '_blank');
+    window.open('https://wa.me/5554981014238?text=Olá! Gostaria de mais informações sobre os serviços da Sircell Assistência Técnica.', '_blank');
   };
 
   return (
@@ -54,24 +54,6 @@ const SircellWhatsApp = () => {
           <div className="absolute top-1/2 -right-1 w-2 h-2 bg-sircell-black rotate-45 transform -translate-y-1/2"></div>
         </div>
       </button>
-
-      {/* Botão de ligação adicional (menor) */}
-      <a
-        href="tel:5554981014238"
-        className={`absolute -top-20 right-0 flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-500
-          ${isVisible ? 'opacity-80 translate-y-0' : 'opacity-0 translate-y-10'}
-          bg-sircell-black hover:bg-sircell-gray hover:scale-110 group`}
-        style={{ animationDelay: '500ms' }}
-        aria-label="Ligar para Sircell"
-      >
-        <Phone className="w-5 h-5 text-white" />
-        
-        {/* Tooltip para ligação */}
-        <div className="absolute right-full mr-3 px-3 py-2 bg-sircell-black text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-          Ligar agora
-          <div className="absolute top-1/2 -right-1 w-2 h-2 bg-sircell-black rotate-45 transform -translate-y-1/2"></div>
-        </div>
-      </a>
     </div>
   );
 };
