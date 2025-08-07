@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Package } from 'lucide-react';
 import {
@@ -8,9 +7,12 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 
 const ProductsPreview = () => {
+  const [api, setApi] = React.useState<CarouselApi>();
+
   const featuredProducts = [
     {
       src: '/lovable-uploads/galeria/cabos_de_carregamento_rapido_.jpg',
@@ -46,6 +48,19 @@ const ProductsPreview = () => {
     }
   ];
 
+  // Autoplay functionality - changes slide every 3 seconds
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      api.scrollNext();
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [api]);
+
   return (
     <section className="py-20 bg-gradient-to-br from-sircell-lightgray to-white relative overflow-hidden">
       {/* Elementos decorativos */}
@@ -70,6 +85,7 @@ const ProductsPreview = () => {
         {/* Carrossel dos produtos */}
         <div className="mb-12 px-12">
           <Carousel
+            setApi={setApi}
             opts={{
               align: "start",
               loop: true,
