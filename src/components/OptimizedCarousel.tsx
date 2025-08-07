@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -9,7 +9,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import ProductCard from './ProductCard';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useGlobalIntersectionObserver } from '@/hooks/useGlobalIntersectionObserver';
 
 interface OptimizedCarouselProps {
   products: Array<{ src: string; alt: string }>;
@@ -17,13 +17,13 @@ interface OptimizedCarouselProps {
   autoplayInterval?: number;
 }
 
-const OptimizedCarousel: React.FC<OptimizedCarouselProps> = ({ 
+const OptimizedCarousel: React.FC<OptimizedCarouselProps> = memo(({ 
   products, 
   autoplay = false,
   autoplayInterval = 3000 
 }) => {
   const [api, setApi] = useState<CarouselApi>();
-  const { targetRef, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
+  const { targetRef, isIntersecting } = useGlobalIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
     rootMargin: '100px'
   });
@@ -64,6 +64,8 @@ const OptimizedCarousel: React.FC<OptimizedCarouselProps> = ({
       )}
     </div>
   );
-};
+});
+
+OptimizedCarousel.displayName = 'OptimizedCarousel';
 
 export default OptimizedCarousel;

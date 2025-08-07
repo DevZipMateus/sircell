@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { cn } from "@/lib/utils";
 import { ArrowDown, Shield, Clock, Award, Star, Smartphone } from 'lucide-react';
@@ -45,13 +44,13 @@ const SircellHero = () => {
       id="inicio" 
       className="relative min-h-screen flex items-center justify-center pt-16 sm:pt-20 lg:pt-24 overflow-hidden bg-gradient-to-br from-sircell-lightgray via-white to-sircell-lightgreen"
     >
-      {/* Padrão decorativo de fundo */}
+      {/* Padrão decorativo de fundo - static for performance */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 w-20 h-20 border-2 border-sircell-green rotate-45"></div>
         <div className="absolute top-32 right-20 w-16 h-16 bg-sircell-green rounded-full"></div>
         <div className="absolute bottom-20 left-20 w-12 h-12 border-2 border-sircell-black rotate-12"></div>
         <div className="absolute bottom-32 right-16 w-8 h-8 bg-sircell-black rounded-full"></div>
-        <Smartphone className="absolute top-1/4 left-1/4 w-32 h-32 text-sircell-green opacity-10 animate-float" />
+        <Smartphone className="absolute top-1/4 left-1/4 w-32 h-32 text-sircell-green opacity-10" />
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 text-center relative z-10">
@@ -66,6 +65,8 @@ const SircellHero = () => {
               src="/lovable-uploads/b5b6b1a3-79c2-49f0-83c4-fca215c4a8d7.png" 
               alt="Sircell assistência de eletrônicos" 
               className="mx-auto h-24 sm:h-32 lg:h-40 w-auto"
+              loading="eager"
+              decoding="sync"
             />
           </div>
           

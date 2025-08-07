@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 import LazyImage from './LazyImage';
 
 interface ProductCardProps {
@@ -10,7 +10,7 @@ interface ProductCardProps {
   onClick?: () => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
+const ProductCard: React.FC<ProductCardProps> = memo(({ product, onClick }) => {
   return (
     <div 
       className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
@@ -30,6 +30,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
       </div>
     </div>
   );
-};
+});
+
+ProductCard.displayName = 'ProductCard';
 
 export default ProductCard;

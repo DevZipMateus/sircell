@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 import ProductCard from './ProductCard';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useGlobalIntersectionObserver } from '@/hooks/useGlobalIntersectionObserver';
 
 interface GalleryGridProps {
   images: Array<{ src: string; alt: string }>;
@@ -9,12 +9,12 @@ interface GalleryGridProps {
   maxImages?: number;
 }
 
-const GalleryGrid: React.FC<GalleryGridProps> = ({ 
+const GalleryGrid: React.FC<GalleryGridProps> = memo(({ 
   images, 
   onImageClick, 
   maxImages 
 }) => {
-  const { targetRef, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
+  const { targetRef, isIntersecting } = useGlobalIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
     rootMargin: '200px'
   });
@@ -35,6 +35,8 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
       ))}
     </div>
   );
-};
+});
+
+GalleryGrid.displayName = 'GalleryGrid';
 
 export default GalleryGrid;

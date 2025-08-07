@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 
 interface LazyImageProps {
   src: string;
@@ -8,7 +8,7 @@ interface LazyImageProps {
   aspectRatio?: string;
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ 
+const LazyImage: React.FC<LazyImageProps> = memo(({ 
   src, 
   alt, 
   className = "", 
@@ -16,6 +16,14 @@ const LazyImage: React.FC<LazyImageProps> = ({
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+
+  const handleLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const handleError = useCallback(() => {
+    setHasError(true);
+  }, []);
 
   return (
     <div className={`${aspectRatio} overflow-hidden relative ${className}`}>
@@ -33,8 +41,9 @@ const LazyImage: React.FC<LazyImageProps> = ({
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
-          onLoad={() => setIsLoaded(true)}
-          onError={() => setHasError(true)}
+          onLoad={handleLoad}
+          onError={handleError}
+          decoding="async"
         />
       )}
       
@@ -45,6 +54,8 @@ const LazyImage: React.FC<LazyImageProps> = ({
       )}
     </div>
   );
-};
+});
+
+LazyImage.displayName = 'LazyImage';
 
 export default LazyImage;
