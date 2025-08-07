@@ -2,6 +2,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Package } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const ProductsPreview = () => {
   const featuredProducts = [
@@ -20,6 +27,22 @@ const ProductsPreview = () => {
     {
       src: '/lovable-uploads/galeria/kit_teclado_mouse_sem_fio_.jpg',
       alt: 'Kit teclado mouse sem fio'
+    },
+    {
+      src: '/lovable-uploads/galeria/carregador_de_carro_com_duas_entradas_usb_.jpg',
+      alt: 'Carregador de carro com duas entradas USB'
+    },
+    {
+      src: '/lovable-uploads/galeria/fonte_de_carregamento_rapido_com_duas_entradas_.jpg',
+      alt: 'Fonte de carregamento rápido com duas entradas'
+    },
+    {
+      src: '/lovable-uploads/galeria/lanterna_ultra_potente_.jpg',
+      alt: 'Lanterna ultra potente'
+    },
+    {
+      src: '/lovable-uploads/galeria/microfone_com_entrada_lightning_.jpg',
+      alt: 'Microfone com entrada Lightning'
     }
   ];
 
@@ -44,30 +67,41 @@ const ProductsPreview = () => {
           </p>
         </div>
 
-        {/* Preview dos produtos */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {featuredProducts.map((product, index) => (
-            <div 
-              key={index}
-              className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            >
-              <div className="aspect-square overflow-hidden">
-                <img 
-                  src={product.src}
-                  alt={product.alt}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  loading="lazy"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-white text-sm font-medium line-clamp-2">
-                    {product.alt}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Carrossel dos produtos */}
+        <div className="mb-12 px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {featuredProducts.map((product, index) => (
+                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                  <div className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <div className="aspect-square overflow-hidden">
+                      <img 
+                        src={product.src}
+                        alt={product.alt}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <p className="text-white text-sm font-medium line-clamp-2">
+                          {product.alt}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="bg-white/90 hover:bg-white border-sircell-green/20 text-sircell-green hover:text-sircell-darkgreen" />
+            <CarouselNext className="bg-white/90 hover:bg-white border-sircell-green/20 text-sircell-green hover:text-sircell-darkgreen" />
+          </Carousel>
         </div>
 
         {/* CTA para ver todos os produtos */}
