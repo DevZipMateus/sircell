@@ -24,37 +24,37 @@ const Index = () => {
       metaDescription.setAttribute('content', 'Sircell Assistência Técnica especializada em celulares, tablets e computadores. Laboratório próprio, reparo rápido e preços justos. Marechal Floriano 1001, RS.');
     } else {
       const meta = document.createElement('meta');
-      meta.name = 'description';
-      meta.content = 'Sircell Assistência Técnica especializada em celulares, tablets e computadores. Laboratório próprio, reparo rápido e preços justos. Marechal Floriano 1001, RS.';
+      meta.setAttribute('name', 'description');
+      meta.setAttribute('content', 'Sircell Assistência Técnica especializada em celulares, tablets e computadores. Laboratório próprio, reparo rápido e preços justos. Marechal Floriano 1001, RS.');
       document.head.appendChild(meta);
     }
 
     // Meta keywords
     const metaKeywords = document.createElement('meta');
-    metaKeywords.name = 'keywords';
-    metaKeywords.content = 'assistência técnica, celular, tablet, computador, reparo, Sircell, RS, Marechal Floriano, laboratório';
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'assistência técnica, celular, tablet, computador, reparo, Sircell, RS, Marechal Floriano, laboratório');
     document.head.appendChild(metaKeywords);
 
     // Open Graph tags
     const ogTitle = document.createElement('meta');
-    ogTitle.property = 'og:title';
-    ogTitle.content = 'Sircell Assistência Técnica - Especialistas em Eletrônicos';
+    ogTitle.setAttribute('property', 'og:title');
+    ogTitle.setAttribute('content', 'Sircell Assistência Técnica - Especialistas em Eletrônicos');
     document.head.appendChild(ogTitle);
 
     const ogDescription = document.createElement('meta');
-    ogDescription.property = 'og:description';
-    ogDescription.content = 'Teu celular pronto antes de você sentir falta dele! Assistência técnica com laboratório próprio e garantia.';
+    ogDescription.setAttribute('property', 'og:description');
+    ogDescription.setAttribute('content', 'Teu celular pronto antes de você sentir falta dele! Assistência técnica com laboratório próprio e garantia.');
     document.head.appendChild(ogDescription);
 
     const ogImage = document.createElement('meta');
-    ogImage.property = 'og:image';
-    ogImage.content = '/lovable-uploads/b5b6b1a3-79c2-49f0-83c4-fca215c4a8d7.png';
+    ogImage.setAttribute('property', 'og:image');
+    ogImage.setAttribute('content', '/lovable-uploads/b5b6b1a3-79c2-49f0-83c4-fca215c4a8d7.png');
     document.head.appendChild(ogImage);
 
     // Twitter Card
     const twitterCard = document.createElement('meta');
-    twitterCard.name = 'twitter:card';
-    twitterCard.content = 'summary_large_image';
+    twitterCard.setAttribute('name', 'twitter:card');
+    twitterCard.setAttribute('content', 'summary_large_image');
     document.head.appendChild(twitterCard);
 
     // Ensure smooth scroll behavior works properly
