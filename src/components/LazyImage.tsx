@@ -78,7 +78,7 @@ const LazyImage: React.FC<LazyImageProps> = memo(({
           position: isLoaded ? 'relative' : 'absolute',
           top: isLoaded ? 'auto' : 0,
           left: isLoaded ? 'auto' : 0,
-          imageRendering: 'optimizeSpeed',
+          imageRendering: 'auto',
           transform: 'translateZ(0)', // GPU acceleration
         }}
       />
