@@ -1,18 +1,10 @@
-import React, { useEffect } from 'react';
+
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Package } from 'lucide-react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel";
+import OptimizedCarousel from './OptimizedCarousel';
 
 const ProductsPreview = () => {
-  const [api, setApi] = React.useState<CarouselApi>();
-
   const featuredProducts = [
     {
       src: '/lovable-uploads/galeria/cabos_de_carregamento_rapido_.jpg',
@@ -48,19 +40,6 @@ const ProductsPreview = () => {
     }
   ];
 
-  // Autoplay functionality - changes slide every 3 seconds
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    const intervalId = setInterval(() => {
-      api.scrollNext();
-    }, 3000);
-
-    return () => clearInterval(intervalId);
-  }, [api]);
-
   return (
     <section className="py-20 bg-gradient-to-br from-sircell-lightgray to-white relative overflow-hidden">
       {/* Elementos decorativos */}
@@ -82,42 +61,13 @@ const ProductsPreview = () => {
           </p>
         </div>
 
-        {/* Carrossel dos produtos */}
+        {/* Carrossel otimizado dos produtos */}
         <div className="mb-12 px-12">
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {featuredProducts.map((product, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                  <div className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                    <div className="aspect-square overflow-hidden">
-                      <img 
-                        src={product.src}
-                        alt={product.alt}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <p className="text-white text-sm font-medium line-clamp-2">
-                          {product.alt}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="bg-white/90 hover:bg-white border-sircell-green/20 text-sircell-green hover:text-sircell-darkgreen" />
-            <CarouselNext className="bg-white/90 hover:bg-white border-sircell-green/20 text-sircell-green hover:text-sircell-darkgreen" />
-          </Carousel>
+          <OptimizedCarousel 
+            products={featuredProducts}
+            autoplay={true}
+            autoplayInterval={4000}
+          />
         </div>
 
         {/* CTA para ver todos os produtos */}
