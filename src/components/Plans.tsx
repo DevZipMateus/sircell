@@ -90,10 +90,10 @@ const Plans = () => {
     >
       <div className="section-container">
         <div className="text-center mb-16">
-          <h2 className="section-title" ref={el => elementsRef.current[0] = el}>
+          <h2 className="section-title text-sircell-black" ref={el => elementsRef.current[0] = el}>
             Nossos Planos de Atendimento
           </h2>
-          <p className="section-subtitle" ref={el => elementsRef.current[1] = el}>
+          <p className="section-subtitle text-sircell-gray" ref={el => elementsRef.current[1] = el}>
             Escolha o plano que melhor atende às suas necessidades e receba um orçamento personalizado.
           </p>
         </div>
@@ -105,28 +105,28 @@ const Plans = () => {
               ref={el => elementsRef.current[2 + index] = el}
               className={cn(
                 "rounded-lg p-8 opacity-0 relative shadow-sm hover:shadow-md transition-all duration-300",
-                plan.isPopular ? "border-2 border-red-600" : "border border-gray-200 bg-white"
+                plan.isPopular ? "border-2 border-sircell-green bg-sircell-lightgreen/10" : "border border-sircell-lightgray bg-white"
               )}
             >
               {plan.isPopular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white text-sm font-medium py-1 px-4 rounded-full">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-sircell-green text-white text-sm font-medium py-1 px-4 rounded-full">
                   Mais Popular
                 </div>
               )}
 
-              <h3 className="text-black font-display font-bold text-2xl mb-2">
+              <h3 className="text-sircell-black font-bold text-2xl mb-2">
                 {plan.name}
               </h3>
               
-              <p className="text-gray-600 text-sm mb-6">
+              <p className="text-sircell-gray text-sm mb-6">
                 {plan.description}
               </p>
               
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-600 flex-shrink-0 mr-2 mt-0.5" />
-                    <span className="text-gray-700">{feature}</span>
+                    <Check className="h-5 w-5 text-sircell-green flex-shrink-0 mr-2 mt-0.5" />
+                    <span className="text-sircell-black">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -135,11 +135,11 @@ const Plans = () => {
                 className={cn(
                   "block text-center py-3 px-6 rounded-md font-medium transition-colors duration-300 w-full",
                   plan.isPopular 
-                    ? "bg-red-600 hover:bg-red-700 text-white" 
-                    : "bg-white hover:bg-gray-50 text-black border border-gray-300"
+                    ? "bg-sircell-green hover:bg-sircell-darkgreen text-white" 
+                    : "bg-white hover:bg-sircell-lightgray text-sircell-black border border-sircell-lightgray"
                 )}
                 onClick={() => {
-                  window.open('https://wa.me/5555999887766?text=Olá!%20Gostaria%20de%20um%20orçamento%20para%20o%20plano%20' + plan.name, '_blank');
+                  window.open('https://wa.me/5554981014238?text=Olá!%20Gostaria%20de%20um%20orçamento%20para%20o%20plano%20' + plan.name, '_blank');
                 }}
               >
                 {plan.ctaText}

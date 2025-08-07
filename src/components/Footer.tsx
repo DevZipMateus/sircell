@@ -13,30 +13,40 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-tech-blue/95 backdrop-blur-md text-white pt-14 pb-8 relative z-10 border-t border-white/10">
+    <footer className="bg-sircell-black/95 backdrop-blur-md text-white pt-14 pb-8 relative z-10 border-t border-white/10">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mb-10">
           <div>
-            <h3 className="font-display font-bold text-xl mb-4">
-              Tech<span className="text-accent">Help</span>
-            </h3>
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="/lovable-uploads/b5b6b1a3-79c2-49f0-83c4-fca215c4a8d7.png" 
+                alt="Sircell" 
+                className="h-10 w-auto"
+              />
+              <div>
+                <h3 className="font-bold text-xl text-white">
+                  Sircell
+                </h3>
+                <p className="text-sircell-green text-sm font-medium">Assistência Técnica</p>
+              </div>
+            </div>
             <p className="text-white/80 mb-4 max-w-sm">
-              Transformamos problemas técnicos em soluções eficazes. Deixe-nos cuidar dos seus eletrônicos enquanto você foca no que realmente importa.
+              Especialistas em celulares, tablets e computadores. Laboratório próprio, qualidade garantida e atendimento ágil.
             </p>
           </div>
           
           <div>
-            <h3 className="font-display font-semibold text-lg mb-4">
+            <h3 className="font-semibold text-lg mb-4 text-white">
               Navegação
             </h3>
             <ul className="space-y-2">
               <li>
                 <a 
-                  href="#home" 
-                  className="text-white/80 hover:text-white transition-colors duration-300"
+                  href="#inicio" 
+                  className="text-white/80 hover:text-sircell-green transition-colors duration-300"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection('home');
+                    scrollToSection('inicio');
                   }}
                 >
                   Início
@@ -44,11 +54,11 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="#about" 
-                  className="text-white/80 hover:text-white transition-colors duration-300"
+                  href="#sobre" 
+                  className="text-white/80 hover:text-sircell-green transition-colors duration-300"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection('about');
+                    scrollToSection('sobre');
                   }}
                 >
                   Sobre Nós
@@ -56,11 +66,11 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="#services" 
-                  className="text-white/80 hover:text-white transition-colors duration-300"
+                  href="#servicos" 
+                  className="text-white/80 hover:text-sircell-green transition-colors duration-300"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection('services');
+                    scrollToSection('servicos');
                   }}
                 >
                   Serviços
@@ -68,23 +78,23 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="#how-it-works" 
-                  className="text-white/80 hover:text-white transition-colors duration-300"
+                  href="#localizacao" 
+                  className="text-white/80 hover:text-sircell-green transition-colors duration-300"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection('how-it-works');
+                    scrollToSection('localizacao');
                   }}
                 >
-                  Como Funciona
+                  Localização
                 </a>
               </li>
               <li>
                 <a 
-                  href="#contact" 
-                  className="text-white/80 hover:text-white transition-colors duration-300"
+                  href="#contato" 
+                  className="text-white/80 hover:text-sircell-green transition-colors duration-300"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection('contact');
+                    scrollToSection('contato');
                   }}
                 >
                   Contato
@@ -94,14 +104,14 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-display font-semibold text-lg mb-4">
+            <h3 className="font-semibold text-lg mb-4 text-white">
               Contato
             </h3>
             <address className="not-italic text-white/80 space-y-2">
-              <p>Rua da Tecnologia, 123 - Centro</p>
-              <p>São Paulo - SP, 01234-567</p>
-              <p>+55 (11) 99988-7766</p>
-              <p>contato@techhelp.com.br</p>
+              <p>Marechal Floriano, 1001 - Centro</p>
+              <p>Rio Grande do Sul - RS</p>
+              <p>(54) 98101-4238</p>
+              <p>sircell27@gmail.com</p>
             </address>
           </div>
         </div>
@@ -109,7 +119,7 @@ const Footer = () => {
         <hr className="border-white/20 mb-8" />
         
         <div className="text-center text-white/80 text-sm">
-          <p>&copy; {currentYear} TechHelp Soluções. Todos os direitos reservados.</p>
+          <p>&copy; {currentYear} Sircell Assistência Técnica. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

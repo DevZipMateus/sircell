@@ -1,11 +1,11 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Phone, MapPin, Clock, MessageCircle, Mail, Award } from 'lucide-react';
+import { cn } from "@/lib/utils";
+import { Phone, Mail, MessageCircle, MapPin, Clock, CheckCircle } from 'lucide-react';
 import ContactInfo from './contact/ContactInfo';
 
 const Contact = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const sectionRef = useRef<HTMLElement | null>(null);
   const elementsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
@@ -13,15 +13,7 @@ const Contact = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            if (entry.target === sectionRef.current) {
-              elementsRef.current.forEach((el, index) => {
-                if (el) {
-                  setTimeout(() => {
-                    el.classList.add('animate-slide-up');
-                  }, index * 100);
-                }
-              });
-            }
+            entry.target.classList.add('animate-slide-up');
             observerRef.current?.unobserve(entry.target);
           }
         });
@@ -29,18 +21,20 @@ const Contact = () => {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observerRef.current.observe(sectionRef.current);
-    }
+    elementsRef.current.forEach((el) => {
+      if (el) observerRef.current?.observe(el);
+    });
 
     return () => {
-      if (observerRef.current && sectionRef.current) {
-        observerRef.current.unobserve(sectionRef.current);
+      if (observerRef.current) {
+        elementsRef.current.forEach((el) => {
+          if (el) observerRef.current?.unobserve(el);
+        });
       }
     };
   }, []);
 
-  const contactMethods = [
+  const contactOptions = [
     {
       icon: <MessageCircle className="h-8 w-8" />,
       title: "WhatsApp",
@@ -49,7 +43,7 @@ const Contact = () => {
       description: "Atendimento instantâneo pelo WhatsApp. Envie fotos do problema e receba diagnóstico preliminar.",
       action: "Solicitar Orçamento",
       link: "https://wa.me/5554981014238?text=Olá!%20Preciso%20de%20um%20orçamento%20para%20reparo%20do%20meu%20equipamento.",
-      bgColor: "bg-green-600 hover:bg-green-700",
+      bgColor: "bg-sircell-green hover:bg-sircell-darkgreen",
       popular: true
     },
     {
@@ -60,7 +54,7 @@ const Contact = () => {
       description: "Ligue diretamente para nossa central de atendimento. Horário comercial de segunda a sábado.",
       action: "Ligar para Orçamento",
       link: "tel:+5554981014238",
-      bgColor: "bg-red-600 hover:bg-red-700",
+      bgColor: "bg-sircell-black hover:bg-sircell-black/80",
       popular: false
     },
     {
@@ -71,184 +65,159 @@ const Contact = () => {
       description: "Envie detalhes do problema por e-mail. Resposta em até 2 horas no horário comercial.",
       action: "Solicitar Orçamento",
       link: "mailto:sircell27@gmail.com?subject=Solicitação de Orçamento",
-      bgColor: "bg-black hover:bg-gray-800",
+      bgColor: "bg-sircell-gray hover:bg-sircell-gray/80",
       popular: false
     }
   ];
 
-  const businessHours = [
-    { day: "Segunda a Sexta", hours: "08:00 - 18:00" },
-    { day: "Sábado", hours: "08:00 - 12:00" },
-    { day: "Domingo", hours: "Fechado" }
-  ];
-
   return (
-    <section id="contact" ref={sectionRef} className="py-24 bg-white relative">
+    <section id="contato" className="py-20 bg-sircell-lightgreen/20 relative">
       <div className="section-container">
-        <div className="text-center mb-20">
-          <div 
-            ref={el => elementsRef.current[0] = el}
-            className="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-semibold mb-4 opacity-0"
-          >
-            CONTATO
-          </div>
+        <div className="text-center mb-16">
           <h2 
-            ref={el => elementsRef.current[1] = el}
-            className="text-4xl md:text-5xl font-black text-black mb-6 opacity-0"
+            className="section-title text-sircell-black"
+            ref={el => elementsRef.current[0] = el}
           >
-            Solicite Seu Orçamento
-            <br />
-            <span className="text-red-600">Sem Compromisso</span>
+            Entre em Contato
           </h2>
           <p 
-            ref={el => elementsRef.current[2] = el}
-            className="text-xl text-gray-600 max-w-3xl mx-auto opacity-0"
+            className="section-subtitle text-sircell-gray"
+            ref={el => elementsRef.current[1] = el}
           >
-            Entre em contato conosco através de diversos canais e receba um orçamento personalizado 
-            para o reparo do seu equipamento.
+            Estamos prontos para atender você da melhor forma possível. 
+            Escolha a opção de contato que preferir.
           </p>
         </div>
 
-        {/* Métodos de contato */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {contactMethods.map((method, index) => (
-            <div 
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {contactOptions.map((option, index) => (
+            <div
               key={index}
-              ref={el => elementsRef.current[3 + index] = el}
-              className="relative bg-gray-50 rounded-2xl p-8 text-center opacity-0 hover:bg-white hover:shadow-lg transition-all duration-300 border-2 border-transparent hover:border-red-100"
+              ref={el => elementsRef.current[2 + index] = el}
+              className={cn(
+                "relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 opacity-0 border border-sircell-lightgray group",
+                "transform hover:-translate-y-2"
+              )}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
-              {method.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold">
-                  MAIS RÁPIDO
+              {option.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-sircell-green text-white text-sm font-medium py-1 px-4 rounded-full shadow-lg">
+                  Mais Popular
                 </div>
               )}
 
-              <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 text-red-600 shadow-lg">
-                {method.icon}
-              </div>
-              
-              <h3 className="text-black font-bold text-xl mb-2">
-                {method.title}
-              </h3>
-              
-              <p className="text-red-600 font-semibold text-sm mb-4">
-                {method.subtitle}
-              </p>
+              <div className="text-center">
+                <div className={cn(
+                  "w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center text-white transition-all duration-300",
+                  option.bgColor,
+                  "group-hover:scale-110"
+                )}>
+                  {option.icon}
+                </div>
 
-              <div className="text-2xl font-bold text-black mb-4">
-                {method.info}
+                <h3 className="text-sircell-black font-bold text-2xl mb-2">
+                  {option.title}
+                </h3>
+                <p className="text-sircell-green font-semibold text-lg mb-4">
+                  {option.subtitle}
+                </p>
+                <p className="text-sircell-black font-bold text-xl mb-6">
+                  {option.info}
+                </p>
+                <p className="text-sircell-gray mb-8 leading-relaxed">
+                  {option.description}
+                </p>
+
+                <a
+                  href={option.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "block text-center text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg",
+                    option.bgColor
+                  )}
+                >
+                  {option.action}
+                </a>
               </div>
-              
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                {method.description}
-              </p>
-              
-              <a 
-                href={method.link}
-                target={method.link.startsWith('http') ? '_blank' : '_self'}
-                rel={method.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className={`inline-block w-full py-3 rounded-lg font-bold text-white transition-all duration-300 transform hover:scale-105 ${method.bgColor}`}
-              >
-                {method.action}
-              </a>
             </div>
           ))}
         </div>
 
-        {/* Informações adicionais */}
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Localização e horários */}
+        <div className="grid lg:grid-cols-2 gap-12">
           <div 
-            ref={el => elementsRef.current[6] = el}
-            className="opacity-0"
+            ref={el => elementsRef.current[5] = el}
+            className="opacity-0 bg-white rounded-2xl p-8 shadow-lg border border-sircell-lightgray"
           >
-            <h3 className="text-3xl font-bold text-black mb-8">Localização & Horários</h3>
-            
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4 bg-gray-50 rounded-xl p-6">
-                <MapPin className="h-6 w-6 text-red-600 flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-black mb-2">Endereço</h4>
-                  <p className="text-gray-600">
-                    Marechal Floriano, 1001 - Centro<br />
-                    Rio Grande do Sul - RS
-                  </p>
-                  <a 
-                    href="https://maps.google.com/?q=Marechal+Floriano+1001+Centro+RS"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-red-600 hover:text-red-700 font-semibold text-sm mt-2 inline-block"
-                  >
-                    Ver no Google Maps →
-                  </a>
-                </div>
+            <div className="mb-6">
+              <MapPin className="h-8 w-8 text-sircell-green mb-4" />
+              <div>
+                <h4 className="font-bold text-sircell-black text-xl mb-2">Endereço</h4>
+                <p className="text-sircell-gray">
+                  Marechal Floriano, 1001 - Centro<br />
+                  Rio Grande do Sul - RS
+                </p>
+                <a 
+                  href="https://maps.google.com/?q=Marechal+Floriano+1001+Centro+RS"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sircell-green hover:text-sircell-darkgreen font-semibold text-sm mt-2 inline-block transition-colors duration-300"
+                >
+                  Ver no Google Maps →
+                </a>
               </div>
+            </div>
 
-              <div className="bg-gray-50 rounded-xl p-6">
-                <div className="flex items-center space-x-4 mb-4">
-                  <Clock className="h-6 w-6 text-red-600" />
-                  <h4 className="font-bold text-black">Horário de Funcionamento</h4>
-                </div>
-                <div className="space-y-2">
-                  {businessHours.map((schedule, idx) => (
-                    <div key={idx} className="flex justify-between items-center">
-                      <span className="text-gray-700">{schedule.day}</span>
-                      <span className="font-semibold text-black">{schedule.hours}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 p-3 bg-red-50 rounded-lg">
-                  <p className="text-red-800 text-sm font-medium">
-                    ⚡ Orçamentos via WhatsApp disponíveis 24h
-                  </p>
+            <div className="border-t border-sircell-lightgray pt-6">
+              <Clock className="h-8 w-8 text-sircell-green mb-4" />
+              <div>
+                <h4 className="font-bold text-sircell-black text-xl mb-4">
+                  Horário de Funcionamento
+                </h4>
+                <div className="space-y-3 text-sircell-gray">
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">Segunda a Sexta:</span>
+                    <span className="text-sircell-black font-semibold">9h às 18h</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">Sábados:</span>
+                    <span className="text-sircell-black font-semibold">9h às 13h</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">Domingos:</span>
+                    <span className="text-sircell-gray">Fechado</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Formulário de contato */}
-          <div 
-            ref={el => elementsRef.current[7] = el}
-            className="opacity-0"
-          >
-            <ContactInfo setRef={() => {}} />
-          </div>
+          <ContactInfo setRef={(el) => elementsRef.current[6] = el} />
         </div>
 
-        {/* Garantias e benefícios */}
-        <div 
-          ref={el => elementsRef.current[8] = el}
-          className="bg-black rounded-2xl p-12 text-center mt-20 opacity-0"
-        >
-          <Award className="h-12 w-12 text-red-500 mx-auto mb-6" />
-          <h3 className="text-white text-3xl font-bold mb-4">
-            Por Que Nos Escolher?
-          </h3>
-          <div className="grid md:grid-cols-3 gap-8 mt-8">
-            <div>
-              <div className="text-4xl font-bold text-red-500 mb-2">24h</div>
-              <div className="text-white font-semibold mb-2">Diagnóstico Rápido</div>
-              <div className="text-gray-300 text-sm">Identificamos o problema em até 24 horas</div>
+        <div className="text-center mt-16">
+          <div 
+            ref={el => elementsRef.current[7] = el}
+            className="bg-gradient-to-r from-sircell-green to-sircell-darkgreen rounded-2xl p-8 text-white opacity-0 shadow-xl"
+          >
+            <div className="flex items-center justify-center mb-6">
+              <CheckCircle className="h-12 w-12 text-white mr-4" />
+              <div className="text-left">
+                <h3 className="text-2xl font-bold">Orçamento Gratuito</h3>
+                <p className="text-white/90">Sem compromisso, sem pegadinhas</p>
+              </div>
             </div>
-            <div>
-              <div className="text-4xl font-bold text-red-500 mb-2">90</div>
-              <div className="text-white font-semibold mb-2">Dias de Garantia</div>
-              <div className="text-gray-300 text-sm">Todos os serviços com garantia estendida</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-red-500 mb-2">15+</div>
-              <div className="text-white font-semibold mb-2">Anos de Experiência</div>
-              <div className="text-gray-300 text-sm">Especialistas em todas as marcas</div>
-            </div>
-          </div>
-          <div className="mt-8">
+            <p className="text-lg mb-6 text-white/95">
+              Receba um orçamento personalizado para o reparo do seu equipamento. 
+              Nossa equipe está pronta para atender você!
+            </p>
             <a 
               href="https://wa.me/5554981014238?text=Olá!%20Gostaria%20de%20um%20orçamento%20personalizado%20para%20meus%20equipamentos." 
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105"
+              className="bg-white text-sircell-green hover:bg-sircell-lightgray px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105 inline-block shadow-lg"
             >
-              SOLICITAR ORÇAMENTO PERSONALIZADO
+              Solicitar Orçamento Gratuito
             </a>
           </div>
         </div>
