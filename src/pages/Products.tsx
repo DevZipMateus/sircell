@@ -1,15 +1,15 @@
 
-import React, { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, X, ArrowLeft } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import ProgressiveImageLoader from '../components/ProgressiveImageLoader';
+import GalleryModal from '../components/GalleryModal';
+import { useImagePreloader } from '../hooks/useImagePreloader';
 
 const Products = () => {
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const elementsRef = useRef<(HTMLElement | null)[]>([]);
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
 
-  // Lista das imagens da galeria baseada nos arquivos da pasta
+  // Lista completa das imagens da galeria
   const galleryImages = [
     {
       src: '/lovable-uploads/galeria/balanca_digital_de_ate_500mg_.jpg',
@@ -125,6 +125,12 @@ const Products = () => {
     }
   ];
 
+  // Preload das imagens críticas (primeiras da lista)
+  useImagePreloader({
+    images: galleryImages.map(img => img.src),
+    priority: true
+  });
+
   useEffect(() => {
     // Meta tags para SEO da página de produtos
     document.title = "Produtos - Sircell Assistência Técnica | Acessórios e Eletrônicos";
@@ -133,36 +139,6 @@ const Products = () => {
     if (metaDescription) {
       metaDescription.setAttribute('content', 'Confira nossa linha completa de produtos e acessórios para celulares, tablets e computadores. Cabos, carregadores, capas e muito mais na Sircell.');
     }
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (entry.target === sectionRef.current) {
-              elementsRef.current.forEach((el, index) => {
-                if (el) {
-                  setTimeout(() => {
-                    el.classList.add('animate-slide-up');
-                  }, index * 100);
-                }
-              });
-            }
-            observerRef.current?.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observerRef.current.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (observerRef.current && sectionRef.current) {
-        observerRef.current.unobserve(sectionRef.current);
-      }
-    };
   }, []);
 
   const openModal = (image: { src: string; alt: string }) => {
@@ -210,68 +186,35 @@ const Products = () => {
       </div>
 
       {/* Conteúdo principal */}
-      <section ref={sectionRef} className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         {/* Elementos decorativos */}
         <div className="absolute top-20 left-10 w-24 h-24 border-4 border-sircell-green/20 rounded-full"></div>
         <div className="absolute bottom-10 right-10 w-32 h-32 bg-sircell-green/10 rounded-full"></div>
         
         <div className="section-container relative z-10">
           <div className="text-center mb-16">
-            <div 
-              ref={el => elementsRef.current[0] = el}
-              className="inline-block bg-sircell-green text-white px-6 py-3 rounded-full text-sm font-bold mb-6 opacity-0"
-            >
+            <div className="inline-block bg-sircell-green text-white px-6 py-3 rounded-full text-sm font-bold mb-6 animate-fade-in">
               GALERIA DE PRODUTOS
             </div>
-            <h2 
-              ref={el => elementsRef.current[1] = el}
-              className="text-4xl md:text-5xl font-bold text-sircell-black mb-6 opacity-0"
-            >
+            <h2 className="text-4xl md:text-5xl font-bold text-sircell-black mb-6 animate-slide-up">
               Nossa Linha
               <br />
               <span className="text-sircell-green">Completa</span>
             </h2>
-            <p 
-              ref={el => elementsRef.current[2] = el}
-              className="text-xl text-sircell-gray max-w-4xl mx-auto opacity-0"
-            >
+            <p className="text-xl text-sircell-gray max-w-4xl mx-auto animate-fade-in">
               Confira nossa variedade de produtos e acessórios para seus dispositivos eletrônicos.
             </p>
           </div>
 
-          <div 
-            ref={el => elementsRef.current[3] = el}
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 opacity-0"
-          >
-            {galleryImages.map((image, index) => (
-              <div 
-                key={index}
-                className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
-                onClick={() => openModal(image)}
-              >
-                <div className="aspect-square overflow-hidden">
-                  <img 
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-white text-sm font-medium line-clamp-2">
-                      {image.alt}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Carregamento progressivo de imagens */}
+          <ProgressiveImageLoader
+            images={galleryImages}
+            onImageClick={openModal}
+            initialLoadCount={12}
+            loadMoreCount={8}
+          />
 
-          <div 
-            ref={el => elementsRef.current[4] = el}
-            className="text-center mt-16 opacity-0"
-          >
+          <div className="text-center mt-16 animate-fade-in">
             <a 
               href="https://wa.me/5554981014238?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20produtos%20disponíveis." 
               target="_blank"
@@ -286,44 +229,12 @@ const Products = () => {
       </section>
 
       {/* Modal para visualizar imagem */}
-      {selectedImage && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-4xl max-h-full">
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 text-white hover:text-sircell-green transition-colors z-10 bg-black/50 rounded-full p-2"
-            >
-              <X size={24} />
-            </button>
-            
-            <button
-              onClick={() => navigateImage('prev')}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-sircell-green transition-colors z-10 bg-black/50 rounded-full p-2"
-            >
-              <ChevronLeft size={32} />
-            </button>
-            
-            <button
-              onClick={() => navigateImage('next')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-sircell-green transition-colors z-10 bg-black/50 rounded-full p-2"
-            >
-              <ChevronRight size={32} />
-            </button>
-
-            <img 
-              src={selectedImage.src}
-              alt={selectedImage.alt}
-              className="max-w-full max-h-full object-contain rounded-lg"
-            />
-            
-            <div className="absolute bottom-4 left-4 right-4 text-center">
-              <p className="text-white bg-black/70 px-4 py-2 rounded-lg">
-                {selectedImage.alt}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      <GalleryModal
+        selectedImage={selectedImage}
+        galleryImages={galleryImages}
+        onClose={closeModal}
+        onNavigate={navigateImage}
+      />
     </div>
   );
 };
