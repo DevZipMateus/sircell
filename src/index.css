@@ -1,0 +1,286 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cores primárias - tons de azul e cinza */
+    --background: 215 25% 97%;
+    --foreground: 215 60% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 60% 15%;
+
+    /* Cores secundárias */
+    --secondary: 210 30% 94%;
+    --secondary-foreground: 215 40% 30%;
+    --muted: 210 30% 94%;
+    --muted-foreground: 215 16% 46%;
+    --accent: 0 84% 60%;
+    --accent-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 60% 15%;
+
+    /* Cores de contraste */
+    --primary: 215 70% 45%;
+    --primary-foreground: 0 0% 100%;
+    --tech-green: 142 70% 45%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214 32% 88%;
+    --input: 214 32% 88%;
+    --ring: 215 70% 45%;
+
+    --radius: 0.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+  }
+
+  body {
+    @apply antialiased;
+    font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv03" on;
+    position: relative;
+    min-height: 100vh;
+    background: transparent;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    font-size: 16px;
+  }
+
+  /* Enhanced parallax effect with better performance */
+  .parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  /* Responsive parallax adjustments */
+  @media (max-width: 768px) {
+    .parallax-bg {
+      background-attachment: scroll;
+    }
+    
+    body {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    body {
+      font-size: 18px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    body {
+      font-size: 20px;
+    }
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-12 sm:py-16 lg:py-20 xl:py-24;
+  }
+  
+  .section-title {
+    @apply text-foreground text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light mb-4 opacity-0 animate-slide-up tracking-tight leading-tight;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .section-subtitle {
+    @apply text-secondary-foreground text-base sm:text-lg lg:text-xl xl:text-2xl max-w-4xl mx-auto mb-8 sm:mb-12 opacity-0 animate-slide-up animation-delay-200 font-light tracking-wide leading-relaxed;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .hero-title {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light mb-4 sm:mb-6 opacity-0 animate-slide-up tracking-tight leading-tight;
+    background: linear-gradient(135deg, hsl(215, 70%, 45%) 0%, hsl(0, 84%, 60%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .card-shadow {
+    @apply shadow-[0px_4px_20px_rgba(0,0,0,0.04)] sm:shadow-[0px_8px_30px_rgba(0,0,0,0.08)];
+  }
+  
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  
+  .hero-parallax {
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  /* Semi-transparent section backgrounds with drastically reduced opacity */
+  .section-bg-semi {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(1px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .section-bg-alt {
+    background: rgba(240, 249, 255, 0.01);
+    backdrop-filter: blur(1px);
+    border-top: 1px solid rgba(240, 249, 255, 0.05);
+    border-bottom: 1px solid rgba(240, 249, 255, 0.05);
+  }
+  
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+  
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+  
+  .tech-gradient {
+    background: linear-gradient(135deg, hsl(215, 70%, 45%) 0%, hsl(215, 60%, 55%) 50%, hsl(0, 84%, 60%) 100%);
+  }
+  
+  .service-card {
+    @apply bg-white/70 backdrop-blur-md rounded-xl p-4 sm:p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0px_8px_30px_rgba(0,0,0,0.12)] hover:translate-y-[-4px] sm:hover:translate-y-[-8px] border border-white/20;
+  }
+  
+  .tech-overlay {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(29, 78, 216, 0.85) 50%, rgba(220, 38, 127, 0.9) 100%);
+  }
+
+  /* Parallax depth layers */
+  .parallax-layer-1 {
+    transform: translateZ(-1px) scale(2);
+  }
+  
+  .parallax-layer-2 {
+    transform: translateZ(-2px) scale(3);
+  }
+  
+  .parallax-layer-3 {
+    transform: translateZ(-3px) scale(4);
+  }
+
+  /* Circuit pattern overlay */
+  .circuit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.15;
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.8'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3Cpath d='M40 30v20M30 40h20M35 35l10 10M45 35l-10 10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* Float animation for floating elements */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Slide up animation */
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+
+  /* Responsive optimizations */
+  @media (max-width: 768px) {
+    .parallax-bg {
+      background-attachment: scroll !important;
+    }
+    
+    .animate-float {
+      transform: none !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-bg,
+    .animate-float,
+    .animate-slide-up {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+
+  /* High resolution optimizations */
+  @media (min-width: 1920px) {
+    .section-container {
+      @apply max-w-8xl;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .section-container {
+      @apply max-w-9xl;
+    }
+  }
+}
