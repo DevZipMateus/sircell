@@ -1,10 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Smartphone } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const SircellNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,20 +18,32 @@ const SircellNavBar = () => {
   }, []);
 
   const menuItems = [
-    { label: 'Início', href: '#inicio' },
-    { label: 'Sobre', href: '#sobre' },
-    { label: 'Serviços', href: '#services' },
-    { label: 'Galeria', href: '#galeria' },
-    { label: 'Instagram', href: '#instagram' },
-    { label: 'Localização', href: '#localizacao' },
-    { label: 'Contato', href: '#contato' },
+    { label: 'Início', href: '#inicio', route: '/' },
+    { label: 'Sobre', href: '#sobre', route: '/' },
+    { label: 'Serviços', href: '#services', route: '/' },
+    { label: 'Produtos', href: '/produtos', route: '/produtos', isRoute: true },
+    { label: 'Instagram', href: '#instagram', route: '/' },
+    { label: 'Localização', href: '#localizacao', route: '/' },
+    { label: 'Contato', href: '#contato', route: '/' },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (href: string, route: string, isRoute?: boolean) => {
+    if (isRoute) {
+      // Se é uma rota, não precisa fazer scroll, o React Router cuida da navegação
       setIsMenuOpen(false);
+      return;
+    }
+
+    if (location.pathname !== route) {
+      // Se não estamos na rota correta, navegue para ela primeiro
+      window.location.href = route + href;
+    } else {
+      // Se já estamos na rota correta, faça o scroll
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsMenuOpen(false);
+      }
     }
   };
 
@@ -43,8 +57,8 @@ const SircellNavBar = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <button 
-              onClick={() => scrollToSection('#inicio')}
+            <Link 
+              to="/"
               className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
             >
               <img 
@@ -57,21 +71,33 @@ const SircellNavBar = () => {
               }`}>
                 Sircell
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Menu Desktop */}
           <div className="hidden lg:flex items-center space-x-8">
             {menuItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => scrollToSection(item.href)}
-                className={`font-medium transition-colors hover:text-sircell-green ${
-                  isScrolled ? 'text-sircell-black' : 'text-sircell-black'
-                }`}
-              >
-                {item.label}
-              </button>
+              item.isRoute ? (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`font-medium transition-colors hover:text-sircell-green ${
+                    isScrolled ? 'text-sircell-black' : 'text-sircell-black'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.href, item.route)}
+                  className={`font-medium transition-colors hover:text-sircell-green ${
+                    isScrolled ? 'text-sircell-black' : 'text-sircell-black'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              )
             ))}
             <a 
               href="https://wa.me/5554981014238?text=Olá!%20Preciso%20de%20um%20orçamento%20para%20reparo%20do%20meu%20equipamento." 
@@ -99,13 +125,24 @@ const SircellNavBar = () => {
           <div className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md border-b border-sircell-green/10 shadow-lg">
             <div className="px-4 py-4 space-y-3">
               {menuItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left text-sircell-black hover:text-sircell-green font-medium py-2 transition-colors"
-                >
-                  {item.label}
-                </button>
+                item.isRoute ? (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block w-full text-left text-sircell-black hover:text-sircell-green font-medium py-2 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href, item.route)}
+                    className="block w-full text-left text-sircell-black hover:text-sircell-green font-medium py-2 transition-colors"
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
               <a 
                 href="https://wa.me/5554981014238?text=Olá!%20Preciso%20de%20um%20orçamento%20para%20reparo%20do%20meu%20equipamento." 
