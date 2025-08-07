@@ -36,7 +36,7 @@ const SircellInstagram = () => {
     {
       id: 1,
       image: "/lovable-uploads/b5b6b1a3-79c2-49f0-83c4-fca215c4a8d7.png",
-      caption: "Mais um celular Samsung Galaxy restaurado com sucesso! ✨ #SircellAssistencia #RepairPro",
+      caption: "Mais um celular Samsung Galaxy restaurado com sucesso! ✨ #SircellAssistecia #RepairPro",
       likes: 127,
       comments: 18
     },
@@ -87,13 +87,13 @@ const SircellInstagram = () => {
             ref={el => elementsRef.current[2] = el}
           >
             <a
-              href="https://instagram.com/sircell"
+              href="https://www.instagram.com/sircell.assistech?igsh=MXFjNTg2eWoyandmNw=="
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 transform"
             >
               <Instagram className="h-6 w-6 mr-3" />
-              @sircell
+              @sircell.assistech
             </a>
           </div>
         </div>
@@ -160,7 +160,7 @@ const SircellInstagram = () => {
             
             <div className="space-y-4">
               <a
-                href="https://instagram.com/sircell"
+                href="https://www.instagram.com/sircell.assistech?igsh=MXFjNTg2eWoyandmNw=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 transform"
