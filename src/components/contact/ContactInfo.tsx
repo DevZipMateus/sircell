@@ -17,8 +17,8 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ setRef }) => {
     {
       icon: <Mail className="h-6 w-6" />,
       title: "Email",
-      details: "contato@sircell.com.br",
-      href: "mailto:contato@sircell.com.br"
+      details: "sircell27@gmail.com",
+      href: "mailto:sircell27@gmail.com"
     },
     {
       icon: <MessageCircle className="h-6 w-6" />,

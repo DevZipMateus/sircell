@@ -45,10 +45,10 @@ const Contact = () => {
       icon: <MessageCircle className="h-8 w-8" />,
       title: "WhatsApp",
       subtitle: "Resposta rápida",
-      info: "(11) 99988-7766",
+      info: "(54) 98101-4238",
       description: "Atendimento instantâneo pelo WhatsApp. Envie fotos do problema e receba diagnóstico preliminar.",
       action: "Solicitar Orçamento",
-      link: "https://wa.me/5555999887766?text=Olá!%20Preciso%20de%20um%20orçamento%20para%20reparo%20do%20meu%20equipamento.",
+      link: "https://wa.me/5554981014238?text=Olá!%20Preciso%20de%20um%20orçamento%20para%20reparo%20do%20meu%20equipamento.",
       bgColor: "bg-green-600 hover:bg-green-700",
       popular: true
     },
@@ -56,10 +56,10 @@ const Contact = () => {
       icon: <Phone className="h-8 w-8" />,
       title: "Telefone",
       subtitle: "Atendimento direto",
-      info: "(11) 3333-4444",
+      info: "(54) 98101-4238",
       description: "Ligue diretamente para nossa central de atendimento. Horário comercial de segunda a sábado.",
       action: "Ligar para Orçamento",
-      link: "tel:+551133334444",
+      link: "tel:+5554981014238",
       bgColor: "bg-red-600 hover:bg-red-700",
       popular: false
     },
@@ -67,10 +67,10 @@ const Contact = () => {
       icon: <Mail className="h-8 w-8" />,
       title: "E-mail",
       subtitle: "Suporte técnico",
-      info: "contato@techhelp.com.br",
+      info: "sircell27@gmail.com",
       description: "Envie detalhes do problema por e-mail. Resposta em até 2 horas no horário comercial.",
       action: "Solicitar Orçamento",
-      link: "mailto:contato@techhelp.com.br?subject=Solicitação de Orçamento",
+      link: "mailto:sircell27@gmail.com?subject=Solicitação de Orçamento",
       bgColor: "bg-black hover:bg-gray-800",
       popular: false
     }
@@ -170,11 +170,11 @@ const Contact = () => {
                 <div>
                   <h4 className="font-bold text-black mb-2">Endereço</h4>
                   <p className="text-gray-600">
-                    Rua da Tecnologia, 123 - Centro<br />
-                    São Paulo - SP, 01234-567
+                    Marechal Floriano, 1001 - Centro<br />
+                    Rio Grande do Sul - RS
                   </p>
                   <a 
-                    href="https://maps.google.com/?q=Rua+da+Tecnologia+123+Centro+São+Paulo"
+                    href="https://maps.google.com/?q=Marechal+Floriano+1001+Centro+RS"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-red-600 hover:text-red-700 font-semibold text-sm mt-2 inline-block"
@@ -243,7 +243,7 @@ const Contact = () => {
           </div>
           <div className="mt-8">
             <a 
-              href="https://wa.me/5555999887766?text=Olá!%20Gostaria%20de%20um%20orçamento%20personalizado%20para%20meus%20equipamentos." 
+              href="https://wa.me/5554981014238?text=Olá!%20Gostaria%20de%20um%20orçamento%20personalizado%20para%20meus%20equipamentos." 
               target="_blank"
               rel="noopener noreferrer"
               className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105"
