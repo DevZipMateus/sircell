@@ -64,7 +64,9 @@ const OptimizedCarousel: React.FC<OptimizedCarouselProps> = memo(({
     };
 
     api.on('select', onSelect);
-    return () => api.off('select', onSelect);
+    return () => {
+      api.off('select', onSelect);
+    };
   }, [api]);
 
   // Autoplay functionality
