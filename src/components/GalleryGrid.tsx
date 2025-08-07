@@ -14,7 +14,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
   onImageClick, 
   maxImages 
 }) => {
-  const { targetRef, isIntersecting } = useIntersectionObserver({
+  const { targetRef, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
     rootMargin: '200px'
   });

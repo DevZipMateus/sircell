@@ -23,7 +23,7 @@ const OptimizedCarousel: React.FC<OptimizedCarouselProps> = ({
   autoplayInterval = 3000 
 }) => {
   const [api, setApi] = useState<CarouselApi>();
-  const { targetRef, isIntersecting } = useIntersectionObserver({
+  const { targetRef, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
     rootMargin: '100px'
   });

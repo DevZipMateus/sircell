@@ -6,11 +6,11 @@ interface UseIntersectionObserverOptions {
   rootMargin?: string;
 }
 
-export const useIntersectionObserver = (
+export const useIntersectionObserver = <T extends HTMLElement = HTMLElement>(
   options: UseIntersectionObserverOptions = {}
 ) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const targetRef = useRef<HTMLElement>(null);
+  const targetRef = useRef<T>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
